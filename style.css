@@ -1,0 +1,2018 @@
+@charset "UTF-8";
+
+/* =================================================================== */
+/* 1. VARIÁVEIS GLOBAIS (CORES E FONTES)
+/* =================================================================== */
+
+:root {
+  --cor-preto: #000000;
+  --cor-bordo-escuro: #6F150C;
+  --cor-marrom-rosado: #B2756E;
+  --cor-rosa-antigo: #C48E87;
+  --cor-rosa-pastel: #D9A79D;
+  --cor-rosa-claro: #F7E7E3;
+  --cor-rosa-super-claro: #EAD9D5;
+  --cor-branco: #FFFFFF;
+  --cor-cinza-texto: #555555;
+  --cor-cinza-claro-fundo: #f8f8f8;
+  --cor-cinza-borda: #eeeeee;
+
+  --fonte-principal: "semplicitapro", sans-serif;
+  --fonte-destaque: "amandine", sans-serif;
+}
+
+/* =================================================================== */
+/* 2. ESTILOS GERAIS E RESET BÁSICO
+/* =================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--fonte-principal);
+  line-height: 1.6;
+  color: var(--cor-bordo-escuro);
+  background-color: var(--cor-rosa-claro);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container principal para centralizar conteúdo */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* =================================================================== */
+/* 3. CABEÇALHO (HEADER)
+/* =================================================================== */
+
+.main-header {
+  background-color: var(--cor-bordo-escuro);
+  padding: 15px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: relative; /* Referência para submenu e busca */
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.header-content .logo img {
+  height: 55px;
+  width: auto;
+}
+
+/* --- Navegação Principal --- */
+.main-nav ul {
+  display: flex;
+}
+
+.main-nav li {
+  margin-left: 35px;
+}
+
+.main-nav a {
+  color: var(--cor-branco);
+  font-size: 1.15em;
+  font-weight: 300;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: var(--cor-rosa-pastel);
+}
+
+.main-nav a:active {
+  color: var(--cor-rosa-claro);
+}
+
+/* --- Submenu (Dropdown) --- */
+.has-submenu {
+  position: relative;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--cor-marrom-rosado);
+  min-width: 250px;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 100;
+  border-radius: 0 0 5px 5px;
+}
+
+.has-submenu:hover .submenu {
+  display: block;
+}
+
+.main-nav li.has-submenu:hover > a {
+  color: var(--cor-rosa-pastel);
+}
+
+.submenu li {
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.submenu li:last-child {
+  border-bottom: none;
+}
+
+.submenu a {
+  display: block;
+  padding: 10px 20px;
+  white-space: nowrap;
+  color: var(--cor-branco);
+  font-size: 1em;
+}
+
+.submenu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--cor-branco);
+}
+
+/* --- Submenu (Dropdown) --- */
+
+/* 1. Garante que todos os submenus comecem ocultos */
+.main-nav ul.submenu {
+  display: none; /* Aumenta um pouco a especificidade */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--cor-marrom-rosado);
+  min-width: 250px;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 100;
+  border-radius: 0 0 5px 5px;
+}
+
+/* 2. Mantém a regra para exibir APENAS no hover */
+.has-submenu:hover .submenu {
+  display: block;
+}
+
+
+/* --- Ícones do Cabeçalho (Busca e Menu Mobile) --- */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --- Menu Hambúrguer (Mobile) --- */
+.menu-toggle {
+  display: none; /* Visível apenas em telas menores via media query */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  outline: none;
+}
+
+.menu-toggle img {
+  width: 28px;
+  height: 28px;
+  display: block;
+  filter: invert(1);
+}
+
+/* --- Caixa de Busca --- */
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  outline: none;
+}
+
+.search-toggle img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.search-box-container {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.search-box-container.visible {
+  display: block;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--cor-rosa-pastel);
+  border-radius: 25px;
+  padding: 6px 12px;
+  width: 250px;
+  background-color: var(--cor-rosa-claro);
+}
+
+.search-form:focus-within {
+  border-color: var(--cor-bordo-escuro);
+  box-shadow: 0 0 5px rgba(111, 21, 12, 0.3);
+}
+
+.search-form input[type="search"] {
+  font-family: var(--fonte-principal);
+  font-weight: 300;
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 0;
+  font-size: 0.9em;
+  color: var(--cor-preto);
+  background-color: transparent;
+}
+
+.search-form input[type="search"]::placeholder {
+  color: var(--cor-bordo-escuro);
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.search-form .search-button,
+.search-form .clear-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.search-form .clear-button {
+  display: none; /* Ativado via JS */
+}
+
+.search-form .search-button img {
+  width: 18px;
+  height: 18px;
+  margin-left: 8px;
+}
+
+.search-form .clear-button img {
+  width: 14px;
+  height: 14px;
+}
+
+/* =================================================================== */
+/* 4. RODAPÉ (FOOTER)
+/* =================================================================== */
+
+.main-footer {
+  background-color: var(--cor-bordo-escuro);
+  padding: 20px 0;
+  color: var(--cor-branco);
+}
+
+.footer-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+  padding: 40px 20px;
+}
+
+.footer-left-card {
+  background-color: var(--cor-rosa-claro);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  height: 250px;
+  color: var(--cor-bordo-escuro);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.footer-logo-area {
+  margin-bottom: 20px;
+}
+
+.footer-logo-svg {
+  width: 200px;
+  height: auto;
+  fill: var(--cor-bordo-escuro);
+}
+
+.footer-tagline {
+  font-size: 1em;
+  line-height: 1.6;
+  color: var(--cor-bordo-escuro);
+  margin-top: 0;
+}
+
+.footer-nav-column,
+.contact-info-column {
+  flex: 1;
+  min-width: 150px;
+}
+
+.footer-nav-column h5, .contact-info-column h5 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.footer-nav-column a, .contact-info-column a.contact-value {
+  color: var(--cor-rosa-claro);
+  display: block;
+  padding: 4px 0;
+  transition: color 0.3s ease;
+}
+
+.footer-nav-column a:hover, .contact-info-column a.contact-value:hover {
+  color: var(--cor-rosa-pastel);
+  text-decoration: underline;
+}
+
+.contact-item {
+  margin-bottom: 20px;
+}
+
+.contact-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--cor-rosa-claro);
+}
+
+.contact-value {
+  font-size: 1em;
+}
+
+.footer-secondary-info {
+  flex-basis: 100%;
+  text-align: center;
+  border-top: 1px solid var(--cor-branco);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.footer-secondary-info p {
+  font-size: 0.9em;
+  color: var(--cor-rosa-pastel);
+  margin: 0;
+}
+
+/* =================================================================== */
+/* 5. COMPONENTES REUTILIZÁVEIS (BOTÕES, TÍTULOS, CARDS)
+/* =================================================================== */
+
+/* --- Botões --- */
+.button { /* Botão padrão, escuro */
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  border: 2px solid transparent;
+  background-color: var(--cor-rosa-super-claro);
+  color: var(--cor-bordo-escuro);
+  border-color: var(--cor-rosa-super-claro);
+}
+.button:hover {
+  background-color: var(--cor-rosa-pastel);
+  border-color: var(--cor-rosa-pastel);
+}
+
+.cta-button {
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  border-color: var(--cor-marrom-rosado);
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.cta-button:hover {
+  background-color: var(--cor-marrom-rosado);
+}
+
+/* Botões COM RETANGULO  --- */
+
+
+.small-cta h4 {
+  font-size: 2.5em;
+  color: var(--cor-branco);
+  margin-bottom: 20px;
+  font-family: var(--fonte-principal);
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.small-cta p {
+  font-size: 1.5em;
+  color: var(--cor-branco);
+  margin: 0 auto 40px auto;
+  max-width: 750px;
+}
+
+
+/* --- Títulos de Seção --- */
+.section-title {
+  font-family: var(--fonte-principal);
+  font-weight: 700;
+  font-size: 2.5em;
+  color: var(--cor-bordo-escuro);
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
+
+/* --- Cards de Serviço --- */
+.service-card {
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card-link:hover .service-card {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.service-card-link:active .service-card {
+    background-color: #5A110A; /* Tom mais escuro de bordô */
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.service-header-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.service-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.service-card h3 {
+  font-weight: 700;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.service-card p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+/* --- Seção de Chamada para Ação (CTA) --- */
+.cta-section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.cta-section .cta-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cta-section h2 {
+  font-size: 2.2em;
+  color: var(--cor-bordo-escuro);
+  margin-bottom: 40px;
+  font-family: var(--fonte-principal);
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.cta-section p {
+  font-size: 1.3em;
+  color: var(--cor-preto);
+  margin: 0 auto 60px auto;
+  max-width: 900px;
+}
+
+/* --- Seção de Chamada para Ação (CTA) COM RETANGULO  --- */
+
+
+.small-cta h4 {
+  font-size: 2.5em;
+  color: var(--cor-branco);
+  margin-bottom: 20px;
+  font-family: var(--fonte-principal);
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.small-cta p {
+  font-size: 1.5em;
+  color: var(--cor-branco);
+  margin: 0 auto 40px auto;
+  max-width: 750px;
+}
+
+
+
+
+/* =================================================================== */
+/* 6. ESTILOS DA PÁGINA INICIAL (HOME)
+/* =================================================================== */
+
+/* --- Seção Hero Inicial --- */
+.hero {
+  background-color: var(--cor-rosa-claro);
+  padding: 100px 0;
+  text-align: center;
+}
+
+.hero .container {
+  max-width: 1200px;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-content h1 {
+  font-size: 2.5em;
+  color: var(--cor-bordo-escuro);
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.hero-content p {
+  font-size: 1.4em;
+  color: var(--cor-preto);
+  margin-bottom: 20px;
+  max-width: 900px;
+}
+
+/* --- Seção "Sobre Mim" com foto sobreposta --- */
+.about-me-section {
+  padding: 100px 0;
+}
+
+.about-me-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-me-image {
+  width: 60%;
+  max-width: 800px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  z-index: 2;
+}
+
+.about-me-image img {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.about-me-section .text-rectangle {
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  width: 80%;
+  padding: 50px 50px 50px 150px;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  margin-left: -100px;
+}
+
+.about-me-text-and-title-wrapper {
+  max-width: 500px;
+}
+
+.text-rectangle h2.section-title {
+  font-family: var(--fonte-destaque);
+  font-size: 2.7em;
+  color: var(--cor-branco);
+  text-align: left;
+  text-transform: none;
+  margin-bottom: 20px;
+}
+
+.about-me-content p {
+  font-size: 1.1em;
+  margin-bottom: 30px;
+}
+
+/* --- Seção de Introdução com Tópicos --- */
+.intro-text-section {
+  padding: 80px 0;
+}
+
+.intro-content-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-height: 520px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.intro-image-wrapper {
+  flex-shrink: 0;
+  width: 60%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.intro-side-image {
+  width: 100%;
+  object-fit: cover;
+  max-height: 550px;
+}
+
+.intro-text-wrapper {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 70%;
+  max-width: 750px;
+  z-index: 2;
+  transform: translateY(-50%);
+}
+
+.intro-text-content-box {
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  padding: 70px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.intro-text-content-box h1 {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.intro-text-content-box p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.topic-with-icon {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.topic-icon-img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* --- Seção de Serviços (Grid) --- */
+.services-section {
+  padding-top: 80px;
+  text-align: center;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* --- Seção de Depoimentos (Carrossel) --- */
+.testimonials {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.testimonials h6 {
+  font-size: 2.2em;
+  margin: 0 0 30px 0;
+}
+
+.testimonials-wrapper {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.testimonials-carousel-container {
+  overflow: hidden;
+}
+
+.testimonials-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.testimonials-slider .testimonial-card {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  padding: 40px;
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-card p {
+  font-size: 1.1em;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.testimonial-card cite {
+  font-size: 1em;
+}
+
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease;
+}
+
+.prev-btn:hover, .next-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn { left: -60px; }
+.next-btn { right: -60px; }
+
+.prev-btn img, .next-btn img {
+  width: 40px;
+  height: 40px;
+}
+
+/* --- Seção de Destaque (Faixa) --- */
+.highlight-section {
+  background-color: #D6BCB9; /* Cor específica */
+  padding: 30px 0;
+  text-align: center;
+}
+
+.highlight-section p {
+  font-style: italic;
+  font-size: clamp(1.2em, 2vw, 1.5em);
+  margin: 0;
+}
+
+/* =================================================================== */
+/* 7. ESTILOS DA PÁGINA "SOBRE"
+/* =================================================================== */
+
+.sobre-page-section {
+  padding: 70px 20px;
+}
+
+.sobre-page-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.sobre-page-image {
+  width: 500px;
+  height: 750px;
+  border-radius: 10px; /* Alterado de 50% para um retângulo */
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.sobre-page-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sobre-page-text-rectangle {
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  flex-grow: 1;
+  max-width: 600px;
+}
+
+.sobre-page-text-rectangle h2 {
+  font-family: var(--fonte-destaque);
+  font-size: clamp(2.5em, 4vw, 3.6em);
+  margin: 0 0 15px 0;
+  font-weight: 600;
+}
+
+.sobre-page-text-rectangle p {
+  font-size: clamp(1em, 1.5vw, 1.15em);
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+/* --- Seção "Minha Essência e Compromisso" (Página Sobre) --- */
+.mission-section {
+  padding: 80px 0;
+}
+
+.mission-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.mission-text-rectangle {
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  flex: 1;
+  max-width: 54%;
+  z-index: 2;
+}
+
+.mission-text-rectangle h2 {
+  font-family: var(--fonte-destaque);
+  font-size: 2.5em;
+  margin: 0 0 15px 0;
+}
+
+.mission-text-rectangle p {
+  font-size: 1.1em;
+  line-height: 1.7;
+}
+
+.mission-image {
+  flex: 0 0 50%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  z-index: 1;
+  margin-left: -3vw;
+}
+
+.mission-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Seção "Valores" (Página Sobre) --- */
+.values-section {
+  padding-bottom: 50px;
+}
+
+.values-title {
+  color: var(--cor-bordo-escuro);
+  font-size: 2.5em;
+  font-family: var(--fonte-principal);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.values-items-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.value-item {
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  min-height: 180px;
+}
+
+.value-item h3 {
+  font-size: 1.4em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.value-item p {
+  font-size: 1em;
+}
+
+/* =================================================================== */
+/* 8. ESTILOS DA PÁGINA DE SERVIÇOS (LISTA)
+/* =================================================================== */
+
+.service-hero-image {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  margin-top: -1px;
+}
+
+.service-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 70%;
+}
+
+.page-intro-section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: clamp(2em, 3.5vw, 3em);
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.page-intro-section .intro-text {
+  font-size: 1.4em;
+  line-height: 1.7;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--cor-preto);
+}
+
+.services-main-section {
+  padding: 60px 0;
+}
+
+.services-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* =================================================================== */
+/* 9. ESTILOS DA PÁGINA DE DETALHE DO SERVIÇO
+/* =================================================================== */
+
+.service-detail-section {
+  padding: 80px 0;
+}
+
+.service-detail-section .container {
+  max-width: 1100px;
+}
+
+.detail-title {
+  font-size: 2.2em;
+  margin-bottom: 60px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.detail-intro {
+  font-size: 1.2em;
+  color: var(--cor-preto);
+  line-height: 1.8;
+  margin: 0 auto 100px;
+  max-width: 1000px;
+  text-align: center;
+}
+
+.detail-topic {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--cor-cinza-borda);
+  margin-bottom: 30px;
+}
+
+.topic-heading {
+  font-size: 1.7em;
+  color: var(--cor-preto);
+  margin-bottom: 15px;
+  border-left: 4px solid var(--cor-bordo-escuro);
+  padding-left: 15px;
+  font-weight: 600;
+}
+
+.detail-topic p {
+  font-size: 1.2em;
+  color: var(--cor-cinza-texto);
+  line-height: 1.7;
+}
+
+.detail-conclusion {
+  margin-top: 100px;
+  padding: 30px;
+  background-color: var(--cor-branco);
+  border-left: 5px solid #d9d9d9;
+  font-style: italic;
+  font-size: 1.35em;
+  color: var(--cor-preto);
+  text-align: center;
+  line-height: 1.8;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- CTA Pequena (Dentro das Páginas de Serviço) --- */
+.cta-section.small-cta {
+  padding: 60px 0;
+  margin-bottom: 100px;
+}
+
+.cta-section.small-cta .cta-content {
+  padding: 40px;
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cta-section.small-cta h4 {
+  font-family: var(--fonte-principal);
+  font-size: 2em;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.cta-section.small-cta p {
+  font-size: 1.3em;
+}
+
+/* =================================================================== */
+/* 10. ESTILOS DA PÁGINA DO BLOG (LISTA DE ARTIGOS)
+/* =================================================================== */
+
+.blog-hero {
+  padding: 80px 20px 40px;
+  text-align: center;
+  background-color: var(--cor-cinza-claro-fundo);
+}
+
+.blog-main-title {
+  font-size: 2.5em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.blog-intro-text {
+  font-size: 1.2em;
+  color: var(--cor-cinza-texto);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.articles-list-section {
+  padding: 60px 0 100px;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.article-card {
+  background-color: var(--cor-branco);
+  padding: 30px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: box-shadow 0.3s, border-color 0.3s;
+  text-align: left;
+}
+
+.article-card:hover {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border-color: var(--cor-bordo-escuro);
+}
+
+.article-title {
+  font-size: 1.35em;
+  color: var(--cor-preto);
+  margin-bottom: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.article-date {
+  font-size: 0.9em;
+  color: var(--cor-bordo-escuro);
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.article-excerpt {
+  font-size: 1em;
+  color: var(--cor-cinza-texto);
+  margin-bottom: 25px;
+}
+
+.read-more-button {
+  color: var(--cor-bordo-escuro);
+  font-weight: 600;
+  border-bottom: 2px solid var(--cor-bordo-escuro);
+  padding-bottom: 3px;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.read-more-button:hover {
+  color: #3e0b06;
+  border-color: #3e0b06;
+}
+
+/* =================================================================== */
+/* 11. ESTILOS DA PÁGINA DE ARTIGO (INDIVIDUAL)
+/* =================================================================== */
+
+.article-detail-section {
+  padding: 80px 0;
+  background-color: var(--cor-branco);
+}
+
+.article-content-container {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.article-detail-title {
+  font-size: 2.2em;
+  color: var(--cor-preto);
+  margin-bottom: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.author-info-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--cor-cinza-borda);
+}
+
+.author-photo-small {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px #d9d9d9;
+}
+
+.author-image-small {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-name {
+  font-weight: 600;
+  color: var(--cor-bordo-escuro);
+  margin: 0;
+}
+
+.article-published-date {
+  font-size: 0.9em;
+  color: #888;
+  margin: 0;
+}
+
+.article-body {
+  font-size: 1.1em;
+  line-height: 1.8;
+  color: var(--cor-preto);
+}
+
+.article-body p { margin-bottom: 25px; }
+.article-body h2 { font-size: 1.5em; color: var(--cor-bordo-escuro); margin: 40px 0 20px; font-weight: 600; }
+.article-body h3 { font-size: 1.4em; color: var(--cor-preto); margin: 30px 0 15px; }
+
+.lead-paragraph {
+  font-size: 1.15em;
+  font-style: italic;
+  margin-bottom: 40px;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+  background-color: var(--cor-rosa-super-claro);
+}
+
+/* =================================================================== */
+/* 12. ESTILOS DA PÁGINA DE CONTATO
+/* =================================================================== */
+
+.contact-hero-section {
+  padding: 60px 20px 40px;
+  background-color: var(--cor-cinza-claro-fundo);
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.contact-intro {
+  font-size: 1.1em;
+  color: var(--cor-cinza-texto);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-details-section {
+  padding: 60px 0;
+}
+
+.contact-grid {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.contact-info-col, .contact-form-col {
+  flex: 1;
+}
+
+.contact-sub-title {
+  font-size: 1.7em;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.contact-item-detail {
+  padding: 20px;
+  border: 1px solid var(--cor-cinza-borda);
+  border-left: 4px solid var(--cor-bordo-escuro);
+  border-radius: 4px;
+  background-color: var(--cor-branco);
+  margin-bottom: 20px;
+}
+
+.contact-form {
+  background-color: #fcfcfc;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.contact-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--cor-bordo-escuro);
+  outline: none;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  background-color: var(--cor-bordo-escuro);
+  color: var(--cor-branco);
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #5d1109;
+}
+
+.map-section {
+  padding: 40px 0 80px;
+}
+
+.map-title {
+  text-align: center;
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.map-embed-wrapper {
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* =================================================================== */
+/* 13. ESTILOS DA PÁGINA DE RESULTADOS DE BUSCA
+/* =================================================================== */
+
+.main-content-wrapper { /* Usado para empurrar o conteúdo para baixo do header */
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.search-results-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#results-title {
+  font-size: 2.2em;
+  margin-bottom: 40px;
+  border-bottom: 3px solid #E0C7C2;
+  padding-bottom: 15px;
+  font-weight: 700;
+}
+
+.search-photo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.search-profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--cor-bordo-escuro);
+}
+
+.search-photo-container p {
+  color: var(--cor-marrom-rosado);
+  font-style: italic;
+  margin: 0;
+}
+
+.results-list li {
+  background-color: var(--cor-branco);
+  border: 1px solid #E0C7C2;
+  border-left: 5px solid var(--cor-bordo-escuro);
+  border-radius: 4px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.results-list li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.results-list h2 {
+  font-size: 1.6em;
+  margin: 0 0 8px 0;
+}
+
+.results-list h2 a {
+  font-weight: 700;
+}
+.results-list h2 a:hover {
+  text-decoration: underline;
+  color: var(--cor-marrom-rosado);
+}
+
+.no-results {
+  font-size: 1.2em;
+  padding: 30px;
+  text-align: center;
+  background-color: var(--cor-branco);
+  border: 1px dashed #E0C7C2;
+  border-radius: 8px;
+}
+
+
+
+/*
+ * Arquivo CSS Principal (style.css)
+ * Este arquivo contém todos os estilos para o seu website.
+ * Desenvolvido para espelhar o design do Adobe Illustrator.
+ *
+ * --- CORES DA PALETA ---
+ * Preto: #000000
+ * Bordô Escuro: #6F150C
+ * Rosa Pastel: #D9A79D
+ * Rosa mais claro: #F7E7E3
+ * Rosa mais claro ainda: #EAD9D5
+ * Branco: #FFFFFF
+*/
+
+
+/* =================================================================== */
+/* --- ESTILOS RESPONSIVOS --- */
+/* Abordagem: Desktop-First (Estilos para telas menores sobrescrevem os maiores) */
+/* =================================================================== */
+
+/* --- Telas de Tablet e Laptops Menores (max-width: 992px) --- */
+@media (max-width: 992px) {
+
+/* --- Seção Sobre Mim (#about-me-section) --- */
+.about-me-section {
+    padding: 60px 20px;
+    overflow-x: hidden; /* Previne scroll horizontal */
+}
+
+.about-me-wrapper {
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-me-image {
+    width: 90%;
+    max-width: 400px;
+    transform: none;
+    margin-bottom: 20px; /* Espaçamento simples */
+    z-index: 1;
+}
+
+.about-me-section .text-rectangle {
+    width: 100%;
+    max-width: 420px;
+    margin-left: 0;
+    transform: none;
+    padding: 40px 30px;
+    text-align: left; /* Melhora a leitura */
+}
+
+/* --- ALTERAÇÃO NO TÍTULO --- */
+.about-me-section .text-rectangle h2.section-title {
+    font-family: var(--fonte-destaque);
+    font-size: 1.9em; /* Aumentei um pouco para dar mais destaque */
+    text-align: left;
+}
+
+/* --- ALTERAÇÃO NO PARÁGRAFO --- */
+.about-me-section .about-me-content p {
+    font-family: var(--fonte-principal);
+    font-size: 1em; /* Aumentei sutilmente para melhor legibilidade */
+    line-height: 1.6; /* Adicionei altura entre as linhas para não ficar embolado */
+}
+
+/* --- ALTERAÇÃO NO BOTÃO --- */
+.about-me-section .button {
+    display: inline-block; /* Garante que o padding seja aplicado corretamente */
+    margin-top: 25px; /* Aumentei um pouco o espaçamento superior */
+    padding: 14px 28px; /* Aumenta o "retângulo" do botão (altura e largura) */
+    font-size: 0.8em;     /* Aumentei o tamanho da fonte do botão */
+    font-weight: bold;  /* Deixa o texto do botão em negrito */
+    text-align: center; /* Garante que o texto esteja centralizado */
+    border-radius: 5px; /* Adiciona uma leve curvatura nas bordas */
+}
+
+    /* --- Seção Introdução Geral --- */
+    .intro-text-section { /* Seletor corrigido para corresponder ao HTML */
+        padding: 60px 20px;
+    }
+
+    .intro-content-wrapper {
+        flex-direction: column;
+        position: static;
+    }
+
+    .intro-image-wrapper {
+        width: 100%;
+        margin-bottom: 20px; /* Espaçamento simples, sem valor negativo */
+    }
+
+    .intro-text-wrapper {
+        width: 100%;
+        position: static;
+        transform: none;
+    }
+
+    /* --- Página Sobre (sobre-page-section) --- */
+    .sobre-page-section .sobre-page-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sobre-page-section .sobre-page-image, 
+    .sobre-page-section .sobre-page-text-rectangle {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 10px;
+    }
+
+    .sobre-page-section .sobre-page-image {
+        margin-bottom: 20px;
+    }
+    
+    .sobre-page-section .sobre-page-text-rectangle {
+        padding: 30px;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .sobre-page-section .sobre-page-text-rectangle h2,
+    .sobre-page-section .sobre-page-text-rectangle p {
+        text-align: center;
+    }
+
+    .sobre-page-section .sobre-page-button {
+        align-self: center;
+    }
+
+    /* --- Seção Missão (mission-section) --- */
+    .mission-section {
+        padding: 40px 0;
+    }
+
+    .mission-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 0 20px;
+    }
+
+    .mission-image {
+        order: 1; /* Imagem no topo */
+        margin-left: 0;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    }
+
+    .mission-text-rectangle {
+        order: 2; /* Texto abaixo */
+        width: 100%;
+        max-width: 100%;
+        padding: 30px 20px;
+        z-index: 1; 
+        margin-top: 0; 
+        align-items: flex-start; 
+    }
+    
+    .mission-text-rectangle h2 {
+        font-size: 2em;
+        text-align: left;
+    }
+
+    .mission-text-rectangle p {
+        font-size: 1em;
+        text-align: left;
+    }
+
+    .mission-button {
+        width: 100%; 
+        box-sizing: border-box;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* --- Página de Artigos (Blog) --- */
+    .blog-main-title {
+        font-size: 2em;
+    }
+
+    .blog-intro-text {
+        font-size: 1.1em;
+    }
+
+    .author-image-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .articles-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    /* --- Página de Contato --- */
+    .contact-grid {
+        flex-direction: column;
+    }
+    .contact-info-col, .contact-form-col {
+        flex: none;
+        width: 100%;
+    }
+}
+
+
+/* --- Telas de Tablet em modo Retrato (max-width: 900px) --- */
+@media (max-width: 900px) {
+
+    /* --- Cabeçalho e Navegação Mobile --- */
+    body {
+        padding-top: 80px; /* Garante espaço para o header fixo */
+    }
+
+    body.menu-open {
+        overflow: hidden; /* Oculta a barra de rolagem do body quando o menu está aberto */
+    }
+    
+    .main-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .header-content {
+        padding: 0 20px;
+        justify-content: space-between;
+    }
+
+    .header-content .logo img {
+        height: 45px;
+    }
+
+    .menu-toggle {
+        display: block; /* Mostra o ícone do hamburguer */
+    }
+
+    .main-nav {
+        display: none; 
+        position: fixed;
+        top: 80px; /* Começa abaixo do header fixo */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px); /* Ocupa o restante da tela */
+        background-color: #6F150C;
+        z-index: 999;
+        overflow-y: auto;
+        padding-top: 5px;
+        transform: translateX(100%); /* Escondido fora da tela */
+        transition: transform 0.3s ease-out;
+    }
+
+    .main-nav.menu-ativo {
+        display: block;
+        transform: translateX(0); /* Mostra o menu */
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .main-nav li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-left: 0;
+    }
+
+    .main-nav li:last-child {
+        border-bottom: none;
+    }
+
+    .main-nav a {
+        padding: 15px 0;
+        color: #FFFFFF;
+        font-size: 1.1em;
+        text-align: left;
+        display: block;
+    }
+
+    /* --- Submenu Mobile --- */
+    .has-submenu {
+        position: static;
+        width: 100%;
+    }
+
+    .has-submenu > a {
+        display: block;
+        justify-content: unset;
+        align-items: unset;
+    }
+
+    .has-submenu > a::after {
+        content: none; /* Remove a seta do desktop */
+    }
+    
+    .submenu {
+        display: block !important; /* Sempre visível quando o menu mobile está aberto */
+        position: static;
+        width: 100%;
+        min-width: unset;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .submenu li {
+        border-bottom: none; 
+    }
+
+    .submenu a {
+        padding-left: 30px; 
+    }
+}
+
+
+/* --- Telas de Celulares Maiores e Tablets Menores (max-width: 768px) --- */
+@media (max-width: 768px) {
+
+    /* --- Seção Hero (#home-intro) --- */
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero .container {
+        padding: 0 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2em;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+    }
+
+    /* --- Seção CTA (.cta-section) --- */
+    .cta-section {
+        padding-top: 40px;
+        padding-bottom: 80px; 
+    }
+    
+    .cta-content {
+        padding: 0 20px;
+    }
+
+    .cta-content h4 {
+        font-size: 1.9em;
+        margin-bottom: 20px;
+    }
+
+    .cta-content p {
+        font-size: 1.1em !important;
+        margin-bottom: 20px;
+    }
+
+    .cta-button {
+        padding: 15px 20px; 
+        font-size: 0.9em;
+        margin-top: 40px;
+    }
+
+    /* --- Rodapé (Footer) --- */
+    .footer-content-wrapper {
+        flex-direction: column; 
+        gap: 30px; 
+        padding: 30px 20px;
+    }
+
+    .footer-left-card {
+        width: 100%; 
+        height: auto; 
+        max-width: none; 
+        padding: 25px; 
+    }
+
+    .footer-nav-column {
+        display: none !important; 
+    }
+    
+    .contact-info-column {
+        flex: none; 
+        width: 100%; 
+        max-width: none;
+        margin-top: 0; 
+    }
+    
+    .contact-info-column .contact-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .contact-info-column .contact-group .contact-item:nth-child(2) {
+        display: none !important; /* Esconde o e-mail */
+    }
+    
+    .contact-info-column .contact-group .contact-item {
+        flex: 1 1 45%;
+        min-width: 120px;
+        margin-bottom: 0;
+    }
+    
+    .contact-info-column .contact-group .contact-item:last-child {
+        flex-grow: 1;
+    }
+
+    .footer-secondary-info {
+        padding-top: 15px;
+        margin-top: 15px;
+        text-align: center; 
+    }
+
+    .footer-secondary-info p {
+        font-size: 0.8em; 
+    }
+    
+    /* --- Seção Valores (values-section) --- */
+    .values-items-container {
+        grid-template-columns: 1fr; 
+    }
+
+    /* --- Página de Serviços (service-hero) --- */
+    .service-hero-image {
+        height: 250px; 
+    }
+    
+    /* --- Página de Artigos (Blog) --- */
+    .blog-hero {
+        padding: 40px 0 20px;
+    }
+    
+    .blog-main-title {
+        font-size: 1.8em;
+    }
+    
+    .blog-intro-text {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+
+    .author-image-wrapper {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .article-card {
+        padding: 25px;
+    }
+    
+    .article-title {
+        font-size: 1.2em;
+    }
+
+    /* --- Página de Detalhe do Artigo --- */
+    .article-detail-section {
+        padding: 40px 0;
+    }
+    
+    .article-detail-title {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .article-body {
+        font-size: 1em;
+        line-height: 1.7;
+    }
+
+    .article-body h2 {
+        font-size: 1.6em;
+        margin: 30px 0 15px;
+    }
+
+    .lead-paragraph {
+        font-size: 1.1em;
+        margin-bottom: 30px;
+    }
+
+    .author-info-block {
+        margin-bottom: 30px;
+    }
+}
+
+
+/* --- Telas de Celulares Pequenos (max-width: 600px) --- */
+@media (max-width: 600px) {
+
+    /* --- Página de Contato --- */
+    .contact-title {
+        font-size: 2em;
+    }
+    .contact-sub-title {
+        font-size: 1.5em;
+    }
+    .contact-form {
+        padding: 20px;
+    }
+}
